@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 import '../widgets/app_widgets.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -7,6 +8,7 @@ class DashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return SafeArea(
       child: SingleChildScrollView(
         child: Padding(

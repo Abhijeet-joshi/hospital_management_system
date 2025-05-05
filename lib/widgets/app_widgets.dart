@@ -1,16 +1,30 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 Widget textBox(
     {required String data,
     Color setTextColor = Colors.black,
     FontWeight setFontWeight = FontWeight.normal,
+    TextDecoration setDecoration = TextDecoration.none,
+    bool isSelectable = false,
     double setFontSize = 16}) {
-  return Text(
+
+  return isSelectable ? SelectableText(
+  data,
+  style: TextStyle(
+    color: setTextColor,
+    fontWeight: setFontWeight,
+    fontSize: setFontSize,
+    decoration: setDecoration,
+  ),
+  ) : Text(
     data,
     style: TextStyle(
       color: setTextColor,
       fontWeight: setFontWeight,
       fontSize: setFontSize,
+      decoration: setDecoration,
     ),
   );
 }
@@ -73,6 +87,17 @@ Widget appointmentCard({required String patName, required String dctName, requir
   );
 }
 
+Widget patientInfoCard({required String title, required String data}){
+  return Container(
+    width: 600,
+    decoration: const BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.all(Radius.circular(11)),
+    ),
+    child: appointmentRow(title: title, data: data),
+  );
+}
+
 Widget appointmentRow({required String title, required String data}){
   return Row(
     mainAxisAlignment: MainAxisAlignment.start,
@@ -85,12 +110,18 @@ Widget appointmentRow({required String title, required String data}){
   );
 }
 
-Widget customizedTextField({double defaultFieldWidth = 400, required TextEditingController fieldCtrl, required String hintText}){
+Widget customizedTextField({
+  double defaultFieldWidth = 400,
+  required TextEditingController fieldCtrl,
+  required String hintText,
+  Function(String)? onEnterPress,
+}){
   return Padding(
     padding: const EdgeInsets.only(bottom: 10),
     child: SizedBox(
       width: defaultFieldWidth,
       child: TextField(
+        onSubmitted: onEnterPress,
         controller: fieldCtrl,
         style: const TextStyle(
             color: Colors.black,
