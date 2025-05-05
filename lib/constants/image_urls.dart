@@ -1,3 +1,3 @@
 class ImageUrls{
-  String hospitalIcon = "assets/images/hospital.png";
+  static String hospitalIcon = "assets/images/hospital.png";
 }

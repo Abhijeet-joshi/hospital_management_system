@@ -20,11 +20,11 @@ Widget statusBox(
     required Widget dataWidget,
     Color defaultBoxColor = Colors.yellow}){
   return Container(
-    padding: EdgeInsets.all(8),
+    padding: const EdgeInsets.all(8),
     width: 300,
     decoration: BoxDecoration(
       color: defaultBoxColor,
-      borderRadius: BorderRadius.all(Radius.circular(11)),
+      borderRadius: const BorderRadius.all(Radius.circular(11)),
     ),
     child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -82,5 +82,33 @@ Widget appointmentRow({required String title, required String data}){
       hSpace(10),
       textBox(data: data),
     ],
+  );
+}
+
+Widget customizedTextField({double defaultFieldWidth = 400, required TextEditingController fieldCtrl, required String hintText}){
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 10),
+    child: SizedBox(
+      width: defaultFieldWidth,
+      child: TextField(
+        controller: fieldCtrl,
+        style: const TextStyle(
+            color: Colors.black,
+            fontSize: 17,
+            fontWeight: FontWeight.w500
+        ),
+        decoration: InputDecoration(
+            hintText: hintText,
+            isDense: true,
+            contentPadding: const EdgeInsets.all(10),
+            fillColor: Colors.white,
+            filled: true,
+            border: const OutlineInputBorder(
+              borderSide: BorderSide(color: Colors.black, width: 0.5),
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+            )
+        ),
+      ),
+    ),
   );
 }

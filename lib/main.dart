@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hospital_management_system/providers/screen_provider.dart';
 import 'package:hospital_management_system/screens/splash_screen.dart';
+import 'package:provider/provider.dart';
 
 void main(){
-  runApp(MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => ScreenProvider(),
+    child: MyApp(),
+  ),);
 }
 
 class MyApp extends StatelessWidget {

@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:hospital_management_system/widgets/app_widgets.dart';
+import 'package:hospital_management_system/screens/add_patient_screen.dart';
+import 'package:hospital_management_system/screens/admitted_patients_screen.dart';
+import 'package:hospital_management_system/screens/all_discharged_patients_screen.dart';
+import 'package:hospital_management_system/screens/dashboard_screen.dart';
+import 'package:hospital_management_system/screens/discharge_patient_screen.dart';
+import 'package:hospital_management_system/screens/filter_by_department_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/screen_provider.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});
@@ -11,96 +19,41 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
 
-  int selectedIndex=-1;
+  int selectedIndex=0;
 
   @override
   Widget build(BuildContext context) {
+    final screenProvider = Provider.of<ScreenProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: navigationDrawer(),
       appBar: AppBar(
         foregroundColor: Colors.white,
         backgroundColor: Colors.redAccent,
-        title: Text("Hospital Management System", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+        title: const Text("Hospital Management System", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        statusBox(
-                          defaultBoxColor: Color(0X5582ccdd),
-                          titleWidget: textBox(data: "Currently Admit Patients", setFontSize: 18, setFontWeight: FontWeight.w500),
-                          dataWidget: textBox(data: "154", setFontSize: 43, setFontWeight: FontWeight.w600),
-                        ),
-                        vSpace(20),
-                        statusBox(
-                          defaultBoxColor: Color(0X55b8e994),
-                          titleWidget: textBox(data: "Indoor patients", setFontSize: 18, setFontWeight: FontWeight.w500),
-                          dataWidget: textBox(data: "26", setFontSize: 43, setFontWeight: FontWeight.w600),
-                        ),
-                        vSpace(20),
-                        statusBox(
-                          defaultBoxColor: Color(0X55fffa65),
-                          titleWidget: textBox(data: "Outdoor patients", setFontSize: 18, setFontWeight: FontWeight.w500),
-                          dataWidget: textBox(data: "47", setFontSize: 43, setFontWeight: FontWeight.w600),
-                        ),
-                        vSpace(20),
-                        statusBox(
-                          defaultBoxColor: Color(0X55079992),
-                          titleWidget: textBox(data: "Emergency patients", setFontSize: 18, setFontWeight: FontWeight.w500),
-                          dataWidget: textBox(data: "78", setFontSize: 43, setFontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
-                    hSpace(20),
-                    statusBox(
-                      defaultBoxColor: Color(0X55ffb8b8),
-                      titleWidget: textBox(data: "Discharged Patients", setFontSize: 18, setFontWeight: FontWeight.w500),
-                      dataWidget: textBox(data: "132", setFontSize: 43, setFontWeight: FontWeight.w600),
-                    ),
-                    hSpace(20),
-                    Container(
-                      width: 1,
-                      height: 500,
-                      color: Colors.grey,
-                    ),
-                    hSpace(20),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        textBox(data: "Booked Appointments", setFontSize: 21, setFontWeight: FontWeight.w500),
-                        vSpace(20),
-                        appointmentCard(patName: "Mahesh Deokar", dctName: "Abhijeet Joshi", appFor: "Headache"),
-                        appointmentCard(patName: "Mahesh Deokar", dctName: "Abhijeet Joshi", appFor: "Headache"),
-                        appointmentCard(patName: "Mahesh Deokar", dctName: "Abhijeet Joshi", appFor: "Headache"),
-                        appointmentCard(patName: "Mahesh Deokar", dctName: "Abhijeet Joshi", appFor: "Headache"),
-                        appointmentCard(patName: "Mahesh Deokar", dctName: "Abhijeet Joshi", appFor: "Headache"),
-                      ],
-                    )
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
+      body: PageView(
+        controller: screenProvider.pageController,
+        onPageChanged: (index) {
+          // Update the current page in the provider.
+          Provider.of<ScreenProvider>(context, listen: false).changePage(index);
+        },
+        children: const [
+          DashboardScreen(),
+          AddPatientScreen(),
+          DischargePatientScreen(),
+          AdmittedPatientsScreen(),
+          AllDischargedPatientsScreen(),
+          FilterByDepartmentScreen(),
+        ],
       ),
     );
   }
 
+
+
   Widget navigationDrawer(){
+    final screenProvider = Provider.of<ScreenProvider>(context);
     return Drawer(
       width: 325,
       shape: const RoundedRectangleBorder( // Apply to Drawer
@@ -129,57 +82,69 @@ class _DashboardState extends State<Dashboard> {
 
           drawerItem(
             context,
-            tabIndex: -1,
+            tabIndex: 0,
             title: 'Dashboard',
             icon: Icons.dashboard,
             onTap: () {
-              changeIndex(-1);
+              changeIndex(0);
+              Navigator.pop(context);
+              screenProvider.jumpToPage(0);
             },
           ),
 
           drawerItem(
             context,
-            tabIndex: 0,
+            tabIndex: 1,
             title: 'Add Patient',
             icon: Icons.add,
             onTap: () {
-              changeIndex(0);
-            },
-          ),
-          drawerItem(
-            context,
-            tabIndex: 1,
-            title: 'Discharge Patient',
-            icon: Icons.person,
-            onTap: () {
               changeIndex(1);
+              Navigator.pop(context);
+              screenProvider.jumpToPage(1);
             },
           ),
           drawerItem(
             context,
             tabIndex: 2,
-            title: 'Show All Admitted Patients',
-            icon: Icons.data_saver_on_rounded,
+            title: 'Discharge Patient',
+            icon: Icons.person,
             onTap: () {
               changeIndex(2);
+              Navigator.pop(context);
+              screenProvider.jumpToPage(2);
             },
           ),
           drawerItem(
             context,
             tabIndex: 3,
-            title: 'Show All Discharged Patients',
-            icon: Icons.people,
+            title: 'Show All Admitted Patients',
+            icon: Icons.data_saver_on_rounded,
             onTap: () {
               changeIndex(3);
+              Navigator.pop(context);
+              screenProvider.jumpToPage(3);
             },
           ),
           drawerItem(
             context,
             tabIndex: 4,
+            title: 'Show All Discharged Patients',
+            icon: Icons.people,
+            onTap: () {
+              changeIndex(4);
+              Navigator.pop(context);
+              screenProvider.jumpToPage(4);
+            },
+          ),
+          drawerItem(
+            context,
+            tabIndex: 5,
             title: 'Filter by Department',
             icon: Icons.sort,
             onTap: () {
-              changeIndex(4);
+              changeIndex(5);
+              Navigator.pop(context);
+              screenProvider.jumpToPage(5);
             },
           ),
         ],
@@ -199,7 +164,7 @@ class _DashboardState extends State<Dashboard> {
       child: Container(
         decoration: BoxDecoration(
           color: selectedIndex==tabIndex ? Colors.redAccent : Colors.transparent,
-          borderRadius: BorderRadius.all(Radius.circular(11)),
+          borderRadius: const BorderRadius.all(Radius.circular(11)),
         ),
         child: ListTile(
           leading: Icon(icon, color: selectedIndex==tabIndex ? Colors.white : Colors.blueGrey,), //Added color
