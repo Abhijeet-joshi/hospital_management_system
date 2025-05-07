@@ -57,6 +57,7 @@ class AdmitPatientData{
           "admit-date" : admitDate,
           "discharge-date" : "",
           "bill-amount" : "",
+          "days-admit" : "",
         }
       );
     }

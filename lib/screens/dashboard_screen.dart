@@ -1,10 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:hospital_management_system/data/admit_patient_data.dart';
+import 'package:hospital_management_system/data/discharged_patient_data.dart';
+import 'package:hospital_management_system/utility/app_utility.dart';
 
 
 import '../widgets/app_widgets.dart';
 
-class DashboardScreen extends StatelessWidget {
+class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
+
+  @override
+  State<DashboardScreen> createState() => _DashboardScreenState();
+}
+
+class _DashboardScreenState extends State<DashboardScreen> {
+
+  AppUtility appUtility = AppUtility();
 
   @override
   Widget build(BuildContext context) {
@@ -53,25 +64,25 @@ class DashboardScreen extends StatelessWidget {
         statusBox(
           defaultBoxColor: Color(0X5582ccdd),
           titleWidget: textBox(data: "Currently Admit Patients", setFontSize: 18, setFontWeight: FontWeight.w500),
-          dataWidget: textBox(data: "154", setFontSize: 43, setFontWeight: FontWeight.w600),
+          dataWidget: textBox(data: AdmitPatientData.admittedPatientsDb.length.toString(), setFontSize: 43, setFontWeight: FontWeight.w600),
         ),
         vSpace(20),
         statusBox(
           defaultBoxColor: Color(0X55b8e994),
           titleWidget: textBox(data: "Indoor patients", setFontSize: 18, setFontWeight: FontWeight.w500),
-          dataWidget: textBox(data: "26", setFontSize: 43, setFontWeight: FontWeight.w600),
+          dataWidget: textBox(data: appUtility.getIndoorPatients().toString(), setFontSize: 43, setFontWeight: FontWeight.w600),
         ),
         vSpace(20),
         statusBox(
           defaultBoxColor: Color(0X55fffa65),
           titleWidget: textBox(data: "Outdoor patients", setFontSize: 18, setFontWeight: FontWeight.w500),
-          dataWidget: textBox(data: "47", setFontSize: 43, setFontWeight: FontWeight.w600),
+          dataWidget: textBox(data: appUtility.getOutdoorPatients().toString(), setFontSize: 43, setFontWeight: FontWeight.w600),
         ),
         vSpace(20),
         statusBox(
           defaultBoxColor: Color(0X55079992),
           titleWidget: textBox(data: "Emergency patients", setFontSize: 18, setFontWeight: FontWeight.w500),
-          dataWidget: textBox(data: "78", setFontSize: 43, setFontWeight: FontWeight.w600),
+          dataWidget: textBox(data: appUtility.getEmergencyPatients().toString(), setFontSize: 43, setFontWeight: FontWeight.w600),
         ),
       ],
     );
@@ -81,7 +92,7 @@ class DashboardScreen extends StatelessWidget {
     return statusBox(
       defaultBoxColor: Color(0X55ffb8b8),
       titleWidget: textBox(data: "Discharged Patients", setFontSize: 18, setFontWeight: FontWeight.w500),
-      dataWidget: textBox(data: "132", setFontSize: 43, setFontWeight: FontWeight.w600),
+      dataWidget: textBox(data: DischargedPatientData.dischargedPatientsDb.length.toString(), setFontSize: 43, setFontWeight: FontWeight.w600),
     );
   }
 

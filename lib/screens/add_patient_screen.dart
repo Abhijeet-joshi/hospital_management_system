@@ -71,6 +71,7 @@ class _AddPatientScreenState extends State<AddPatientScreen> {
               "admit-date" : admitDate,
               "discharge-date" : "",
               "bill-amount" : "",
+              "days-admit" : "",
             });
 
             nameController.clear();

@@ -5,6 +5,7 @@ import 'package:hospital_management_system/widgets/app_widgets.dart';
 import 'package:hospital_management_system/widgets/customized_drop_down.dart';
 
 import '../data/discharged_patient_data.dart';
+import '../utility/app_utility.dart';
 
 class DischargePatientScreen extends StatefulWidget {
   const DischargePatientScreen({super.key});
@@ -39,8 +40,18 @@ class _DischargePatientScreenState extends State<DischargePatientScreen> {
               if(id==data[i]["id"].toString()){
                 idFound=true;
                 setState(() {
-                  DischargedPatientData.dischargedPatientsDb.add(data[i]);
-                  AdmitPatientData.admittedPatientsDb.remove(data[i]);
+                  int getRandomDays = AppUtility().getRandomDays();
+                  DateTime dischargeDate = DateTime.now().add(Duration(days: getRandomDays));
+                  String dateString = dischargeDate.toString();
+                  //2025-05-11
+                  int day =  int.parse((dateString[0]+dateString[1]+dateString[2]+dateString[3]).toString());
+                  int month =  int.parse((dateString[5]+dateString[6]).toString());
+                  int year =  int.parse((dateString[8]+dateString[9]).toString());
+                  AdmitPatientData.admittedPatientsDb[i]["discharge-date"] = "$day/$month/$year - ${DateTime.now().hour}:${DateTime.now().minute}:${DateTime.now().second}";
+                  AdmitPatientData.admittedPatientsDb[i]["days-admit"] = getRandomDays.toString();
+                  AdmitPatientData.admittedPatientsDb[i]["bill-amount"] = AppUtility().generateBill(getRandomDays).toString();
+                  DischargedPatientData.dischargedPatientsDb.add(AdmitPatientData.admittedPatientsDb[i]);
+                  AdmitPatientData.admittedPatientsDb.remove(AdmitPatientData.admittedPatientsDb[i]);
                 });
                 ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Patient - $id Discharged Successfully")));
                 idController.clear();

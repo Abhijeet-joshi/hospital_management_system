@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:hospital_management_system/data/admit_patient_data.dart';
 
 import '../widgets/app_widgets.dart';
 
@@ -34,6 +37,11 @@ class AppUtility{
               patientInfoCard(title: "Patient Age : ", data: db["age"].toString()),
               patientInfoCard(title: "Patient Department : ", data: db["department"].toString()),
               patientInfoCard(title: "Patient Type : ", data: db["type"].toString()),
+              patientInfoCard(title: "Admit Date : ", data: db["admit-date"].toString()),
+              patientInfoCard(title: "Discharge Date : ", data: db["discharge-date"].toString()),
+              patientInfoCard(title: "Days Admit : ", data: db["days-admit"].toString()),
+              patientInfoCard(title: "Per Day Charge : ", data: "Rs. 550"),
+              patientInfoCard(title: "Bill Amount : ", data: "Rs. ${db["bill-amount"].toString()}"),
             ],
           ),
           actions: <Widget>[
@@ -47,6 +55,48 @@ class AppUtility{
         );
       },
     );
+  }
+
+  int getIndoorPatients(){
+    int count=0;
+    for(int i=0; i<AdmitPatientData.admittedPatientsDb.length; i++){
+      if(AdmitPatientData.admittedPatientsDb[i]["type"]=="Indoor"){
+        count++;
+      }
+    }
+    return count;
+  }
+
+  int getOutdoorPatients(){
+    int count=0;
+    for(int i=0; i<AdmitPatientData.admittedPatientsDb.length; i++){
+      if(AdmitPatientData.admittedPatientsDb[i]["type"]=="Outdoor"){
+        count++;
+      }
+    }
+    return count;
+  }
+
+  int getEmergencyPatients(){
+    int count=0;
+    for(int i=0; i<AdmitPatientData.admittedPatientsDb.length; i++){
+      if(AdmitPatientData.admittedPatientsDb[i]["type"]=="Emergency"){
+        count++;
+      }
+    }
+    return count;
+  }
+
+  int getRandomDays(){
+    int min=3;
+    int max=7;
+    Random random = Random();
+    int randomNumber = random.nextInt(max - min + 1) + min;
+    return randomNumber;
+  }
+
+  double generateBill(int days){
+    return days*550;
   }
 
 }

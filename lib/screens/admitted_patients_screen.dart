@@ -223,6 +223,16 @@ class _AdmittedPatientsScreenState extends State<AdmittedPatientsScreen> {
                             child: InkWell(
                                 onTap: (){
                                   setState(() {
+                                    int getRandomDays = AppUtility().getRandomDays();
+                                    DateTime dischargeDate = DateTime.now().add(Duration(days: getRandomDays));
+                                    String dateString = dischargeDate.toString();
+                                    //2025-05-11
+                                    int year =  int.parse((dateString[0]+dateString[1]+dateString[2]+dateString[3]).toString());
+                                    int month =  int.parse((dateString[5]+dateString[6]).toString());
+                                    int day =  int.parse((dateString[8]+dateString[9]).toString());
+                                    AdmitPatientData.admittedPatientsDb[index]["discharge-date"] = "$day/$month/$year - ${DateTime.now().hour}:${DateTime.now().minute}:${DateTime.now().second}";
+                                    AdmitPatientData.admittedPatientsDb[index]["days-admit"] = getRandomDays.toString();
+                                    AdmitPatientData.admittedPatientsDb[index]["bill-amount"] = AppUtility().generateBill(getRandomDays).toString();
                                     DischargedPatientData.dischargedPatientsDb.add(dataSource[index]);
                                     AdmitPatientData.admittedPatientsDb.remove(dataSource[index]);
                                   });

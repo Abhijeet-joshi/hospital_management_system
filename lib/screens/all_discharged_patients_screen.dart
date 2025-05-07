@@ -58,7 +58,7 @@ class _AllDischargedPatientsScreenState extends State<AllDischargedPatientsScree
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                    flex: 2,
+                    flex: 3,
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                       decoration: BoxDecoration(
@@ -80,7 +80,7 @@ class _AllDischargedPatientsScreenState extends State<AllDischargedPatientsScree
                     ),
                   ),
                   Expanded(
-                    flex: 2,
+                    flex: 1,
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                       decoration: BoxDecoration(
@@ -112,6 +112,50 @@ class _AllDischargedPatientsScreenState extends State<AllDischargedPatientsScree
                       child: textBox(data: "Patient Type", setFontWeight: FontWeight.w500, setFontSize: 19, setTextColor: Colors.white),
                     ),
                   ),
+                  Expanded(
+                    flex:3,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: Colors.indigo.shade400,
+                        border: Border.all(width: 0.5, color: Colors.black,),
+                      ),
+                      child: textBox(data: "Admit Date", setFontWeight: FontWeight.w500, setFontSize: 19, setTextColor: Colors.white),
+                    ),
+                  ),
+                  Expanded(
+                    flex:3,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: Colors.indigo.shade400,
+                        border: Border.all(width: 0.5, color: Colors.black,),
+                      ),
+                      child: textBox(data: "Discharge Date", setFontWeight: FontWeight.w500, setFontSize: 19, setTextColor: Colors.white),
+                    ),
+                  ),
+                  Expanded(
+                    flex:2,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: Colors.indigo.shade400,
+                        border: Border.all(width: 0.5, color: Colors.black,),
+                      ),
+                      child: textBox(data: "Admit Days", setFontWeight: FontWeight.w500, setFontSize: 19, setTextColor: Colors.white),
+                    ),
+                  ),
+                  Expanded(
+                    flex:3,
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: Colors.indigo.shade400,
+                        border: Border.all(width: 0.5, color: Colors.black,),
+                      ),
+                      child: textBox(data: "Bill Amount", setFontWeight: FontWeight.w500, setFontSize: 19, setTextColor: Colors.white),
+                    ),
+                  ),
                 ],
               ),
               ListView.builder(
@@ -124,7 +168,7 @@ class _AllDischargedPatientsScreenState extends State<AllDischargedPatientsScree
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                             decoration: BoxDecoration(
@@ -146,7 +190,7 @@ class _AllDischargedPatientsScreenState extends State<AllDischargedPatientsScree
                           ),
                         ),
                         Expanded(
-                          flex: 2,
+                          flex: 1,
                           child: Container(
                             padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                             decoration: BoxDecoration(
@@ -176,6 +220,50 @@ class _AllDischargedPatientsScreenState extends State<AllDischargedPatientsScree
                               border: Border.all(width: 0.5, color: Colors.black),
                             ),
                             child: textBox(data: data[index]["type"].toString()),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: index%2==0 ? Colors.blue.shade50 : Colors.white,
+                              border: Border.all(width: 0.5, color: Colors.black),
+                            ),
+                            child: textBox(data: data[index]["admit-date"].toString()),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: index%2==0 ? Colors.blue.shade50 : Colors.white,
+                              border: Border.all(width: 0.5, color: Colors.black),
+                            ),
+                            child: textBox(data: data[index]["discharge-date"].toString()),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 2,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: index%2==0 ? Colors.blue.shade50 : Colors.white,
+                              border: Border.all(width: 0.5, color: Colors.black),
+                            ),
+                            child: textBox(data: data[index]["days-admit"].toString()),
+                          ),
+                        ),
+                        Expanded(
+                          flex: 3,
+                          child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                            decoration: BoxDecoration(
+                              color: index%2==0 ? Colors.blue.shade50 : Colors.white,
+                              border: Border.all(width: 0.5, color: Colors.black),
+                            ),
+                            child: textBox(data: "Rs. ${data[index]["bill-amount"].toString()}"),
                           ),
                         ),
                       ],
