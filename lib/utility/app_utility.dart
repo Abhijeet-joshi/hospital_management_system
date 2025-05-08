@@ -6,8 +6,9 @@ import 'package:hospital_management_system/data/admit_patient_data.dart';
 import '../widgets/app_widgets.dart';
 
 class AppUtility{
-  int generatePatientID(){
-    return DateTime.now().microsecondsSinceEpoch;
+  String generatePatientID(){
+    String idNumber =  DateTime.now().microsecondsSinceEpoch.toString().replaceRange(0, 9, "");
+    return "PAT_$idNumber";
   }
 
   Future<void> patientDetailsDialog(BuildContext context, Map<String, String> db) async {
